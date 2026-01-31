@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>プロフィール - MysteryNet</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header profile-header">
+      <div class="back-button" onclick="history.back()">←</div>
+      <div>
+        <h1 id="header-name">読み込み中...</h1>
+        <span class="tweet-count" id="header-tweet-count">0件のポスト</span>
+      </div>
+    </div>
+
+    <div class="profile-info">
+      <div class="header-image" id="profile-header-img"></div>
+      
+      <div class="profile-details">
+        <div class="profile-avatar-large">
+          <img src="" alt="" class="avatar-img" id="profile-avatar">
+        </div>
+        <div class="follow-btn">フォロー</div>
+        
+        <div class="profile-names">
+          <div class="username" id="profile-display-name">名前</div>
+          <div class="handle" id="profile-handle">@handle</div>
+        </div>
+        
+        <div class="profile-bio" id="profile-bio">
+          自己紹介
+        </div>
+        
+        <div class="profile-meta">
+          <span id="profile-joined">📅 利用しています</span>
+        </div>
+        
+        <div class="profile-stats">
+          <span><strong id="profile-following">0</strong> フォロー中</span>
+          <span><strong id="profile-followers">0</strong> フォロワー</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-tabs">
+      <div class="nav-tab active">ポスト</div>
+      <div class="nav-tab">返信</div>
+      <div class="nav-tab">メディア</div>
+      <div class="nav-tab">いいね</div>
+    </div>
+
+    <div class="timeline" id="profile-timeline">
+    </div>
+  </div>
+
+  <div id="imageModal" class="modal" onclick="this.style.display='none'">
+    <span class="modal-close">&times;</span>
+    <img class="modal-content" id="fullImage">
+  </div>
+
+  <script src="data.js"></script>
+  <script src="profile_script.js"></script>
+</body>
+</html>

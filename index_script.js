@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 2. グループ化と選別
+    // 2. グループ化
     const userGroups = {};
     allTweets.forEach(tweet => {
         if (!userGroups[tweet.userId]) userGroups[tweet.userId] = [];
@@ -32,13 +32,12 @@ document.addEventListener("DOMContentLoaded", () => {
         if (latest) guaranteedTweets.push(latest);
 
         userTweets.forEach(tweet => {
-            if (parseInt(userId) <= 9) { poolTweets.push(tweet); poolTweets.push(tweet); }
-            else { poolTweets.push(tweet); }
+            poolTweets.push(tweet); // 重複は一切なし
         });
     });
 
     // 3. シャッフル（シード固定）
-    let seed = 8888888; // シード値を大きく変更
+    let seed = 99887766; // シードをリセット
     function seededRandom() {
         seed = (seed * 9301 + 49297) % 233280;
         return seed / 233280;
@@ -52,16 +51,23 @@ document.addEventListener("DOMContentLoaded", () => {
         return array;
     }
 
-    // 4. 【最強の並び替え】合体後にトップをチェック
+    // 4. 合体と「大橋さん潜伏」ロジック
     let combined = shuffle([...guaranteedTweets, ...poolTweets]);
 
-    // ★重要：もし一番上が「大橋（userId: "2"）」だったら、2番目と入れ替える
-    if (combined[0] && combined[0].userId === "2") {
-        const first = combined.shift();
-        combined.push(first); // 大橋を一番最後に回す
-    }
+    // 【重要】大橋（userId: "2"）のツイートをすべて抽出し、リストの後半（5番目以降）へ飛ばす
+    const notOhashi = combined.filter(t => t.userId !== "2");
+    const onlyOhashi = combined.filter(t => t.userId === "2");
+
+    // 大橋さん以外のリストの「5番目から最後」の間のどこかに大橋さんを1つずつねじ込む
+    onlyOhashi.forEach(tweet => {
+        // 5枚目以降のランダムな位置を計算
+        const minPos = 5; 
+        const maxPos = notOhashi.length;
+        const insertPos = Math.floor(seededRandom() * (maxPos - minPos + 1)) + minPos;
+        notOhashi.splice(insertPos, 0, tweet);
+    });
     
-    initialTweets = combined;
+    initialTweets = notOhashi;
 
     // 5. 描画関数
     function renderTimeline(tweetsToRender) {
@@ -102,7 +108,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     renderTimeline(initialTweets);
 
-    // 検索
     if (searchInput) {
         searchInput.addEventListener("input", (e) => {
             const query = e.target.value.toLowerCase().trim();

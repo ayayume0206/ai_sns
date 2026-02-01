@@ -73,7 +73,20 @@ body {
 .handle, .timestamp { color: #71767b; font-size: 15px; }
 
 .tweet-text { color: #e7e9ea; font-size: 15px; line-height: 20px; margin-bottom: 12px; white-space: pre-wrap; }
-.tweet-text a { color: #1d9bf0; text-decoration: none; }
+
+/* 【修正】メンションとリンクの色 --- */
+.tweet-text a, .mention, .replying-to .mention { 
+  color: #1d9bf0 !important; 
+  text-decoration: none; 
+  cursor: pointer;
+}
+.tweet-text a:hover, .mention:hover { text-decoration: underline; }
+
+.replying-to {
+  color: #71767b;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
 
 /* 画像グリッド */
 .tweet-images {
@@ -83,7 +96,7 @@ body {
 .tweet-images[data-count="1"] { grid-template-columns: 1fr; }
 .tweet-images img { width: 100%; height: 200px; object-fit: cover; cursor: zoom-in; }
 
-/* --- 【修正箇所】アクションボタンの横並び --- */
+/* アクションボタン横並び */
 .tweet-actions {
   display: flex;
   justify-content: space-between;
@@ -129,7 +142,7 @@ body {
 .profile-stats { display: flex; gap: 20px; font-size: 14px; color: #71767b; }
 .profile-stats strong { color: #e7e9ea; }
 
-/* 【修正箇所】プロフィールのタブメニュー --- */
+/* プロフィールのタブメニュー */
 .nav-tabs {
   display: flex;
   border-bottom: 1px solid #2f3336;

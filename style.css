@@ -123,36 +123,48 @@ body {
 
 /* ツイート本文内のリンク（aタグ）のスタイル */
 .tweet-text a {
-  color: #4ebcfc !important; /* 黒背景に映える非常に明るい青 */     /* 下線を消す（好みで） */
+  color: #4ebcfc !important;
   font-weight: 500;
+  text-decoration: none;
 }
 
 .tweet-text a:hover {
-  text-decoration: underline; /* ホバーした時だけ下線を出す */
-  color: #a0dfff;             /* ホバー時はさらに白に近い青に */
+  text-decoration: underline;
+  color: #a0dfff;
 }
 
-/* ついでにメンションのspanも同じ色に合わせると統一感が出ます */
 .mention {
-  color: #4ebcfc;
+  color: #50b8fe;
   cursor: pointer;
 }
-
-.mention { color: #50b8fe; cursor: pointer; }
 .mention:hover { text-decoration: underline; }
 
 /* 画像グリッド */
 .tweet-images {
   display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 2px;
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid #2f3336;
-  margin-bottom: 12px;
+  margin-top: 12px;
 }
 
-.tweet-images img { width: 100%; height: 200px; object-fit: cover; }
-.tweet-images[data-count="1"] img { height: auto; max-height: 400px; }
+.tweet-images[data-count="1"] {
+  grid-template-columns: 1fr;
+}
+
+.tweet-images img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  cursor: zoom-in;
+  transition: opacity 0.2s;
+}
+
+.tweet-images img:hover {
+  opacity: 0.9;
+}
 
 /* アクション */
 .tweet-actions { display: flex; justify-content: space-between; max-width: 425px; color: #71767b; font-size: 13px; }
@@ -188,43 +200,42 @@ body {
 .trend-item { padding: 12px 0; cursor: pointer; }
 .trend-item span { color: #71767b; font-size: 13px; }
 
-/* スマホ対応 */
-@media (max-width: 1100px) {
-  .main-layout { grid-template-columns: 80px 600px; }
-  .nav-item span, .sidebar-right { display: none; }
+/* =========================================
+   レスポンシブ対応：ここを大幅に修正しました
+   ========================================= */
+
+/* iPad・タブレット（1100px以下 769px以上） */
+@media (max-width: 1100px) and (min-width: 769px) {
+  .main-layout { 
+    grid-template-columns: 80px 1fr 300px; /* 左をアイコン化して3列維持 */
+    width: 100%;
+    max-width: 100vw;
+  }
+  /* 左メニューのテキストを消す */
+  .nav-item span { display: none; }
+  .nav-item { padding: 12px; justify-content: center; }
+  .sidebar-left { align-items: center; width: 80px; }
+  
+  /* 右サイドバーは表示し、少し幅を狭める */
+  .sidebar-right { display: block; width: 300px; }
 }
 
-/* --- 画像グリッド（2列配置） --- */
-.tweet-images {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* 2列固定 */
-  gap: 2px;
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid #2f3336;
-  margin-top: 12px;
-}
-
-/* 画像が1枚のときは1列にする */
-.tweet-images[data-count="1"] {
-  grid-template-columns: 1fr;
-}
-
-.tweet-images img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  cursor: zoom-in;
-  transition: opacity 0.2s;
-}
-
-.tweet-images img:hover {
-  opacity: 0.9;
+/* スマホサイズ（768px以下） */
+@media (max-width: 768px) {
+  .main-layout { 
+    grid-template-columns: 60px 1fr; /* 右を完全に消す */
+  }
+  .nav-item span, .sidebar-right { 
+    display: none; 
+  }
+  .sidebar-left { width: 60px; padding: 12px 5px; align-items: center; }
+  .nav-item { padding: 10px; }
+  .logo { font-size: 24px; }
 }
 
 /* --- 拡大表示（モーダル） --- */
 .modal {
-  display: none; /* 通常は隠す */
+  display: none;
   position: fixed;
   z-index: 2000;
   top: 0; left: 0;
@@ -241,25 +252,21 @@ body {
   object-fit: contain;
 }
 
-
-/* --- プロフィール画面専用の調整 --- */
-
-/* ヘッダー画像（背景） */
+/* --- プロフィール画面 --- */
 .header-image {
   width: 100%;
   height: 200px;
-  background-color: #333; /* 画像がない時の色 */
+  background-color: #333;
   background-size: cover;
   background-position: center;
 }
 
-/* アバターの配置調整 */
 .profile-avatar-large {
   width: 80px;
   height: 80px;
   border-radius: 50%;
   border: 4px solid #000;
-  margin-top: -40px; /* 背景画像に少し被せる */
+  margin-top: -40px;
   margin-left: 16px;
   overflow: hidden;
   background: #000;
@@ -271,176 +278,57 @@ body {
   object-fit: cover;
 }
 
-/* プロフィール詳細の余白 */
-.profile-details {
-  padding: 12px 16px;
-}
-
-.profile-names {
-  margin-top: 8px;
-  margin-bottom: 12px;
-}
-
-.profile-names .username {
-  font-size: 20px;
-  font-weight: 800;
-  color: #e7e9ea;
-}
-
-.profile-names .handle {
-  color: #71767b;
-  font-size: 15px;
-}
-
-.profile-bio {
-  font-size: 15px;
-  line-height: 20px;
-  margin-bottom: 12px;
-  color: #e7e9ea;
-}
-
-.profile-meta {
-  color: #71767b;
-  font-size: 15px;
-  margin-bottom: 12px;
-}
-
-.profile-stats {
-  display: flex;
-  gap: 20px;
-  font-size: 14px;
-  color: #71767b;
-}
-
-.profile-stats strong {
-  color: #e7e9ea;
-}
-
-/* タブのスタイル */
-.nav-tabs {
-  display: flex;
-  border-bottom: 1px solid #2f3336;
-  margin-top: 16px;
-}
-
-.nav-tab {
-  flex: 1;
-  text-align: center;
-  padding: 16px;
-  color: #71767b;
-  font-weight: 700;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.nav-tab:hover {
-  background: rgba(255, 255, 255, 0.03);
-}
-
-.nav-tab.active {
-  color: #e7e9ea;
-  border-bottom: 4px solid #1d9bf0;
-}
-
-/* タイムライン表示エリア */
-#profile-timeline {
-  min-height: 400px;
-}
-
-/* --- 詳細画面専用スタイル --- */
-.main-tweet {
-  padding: 16px;
-  border-bottom: 1px solid #2f3336;
-}
-
-.main-tweet-user {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 15px;
-}
-
-.main-tweet-text {
-  font-size: 22px; /* 詳細画面は少し文字を大きく */
-  line-height: 1.3;
-  margin-bottom: 15px;
-  color: #e7e9ea;
-}
-
-.main-tweet-info {
-  padding: 15px 0;
-  border-bottom: 1px solid #2f3336;
-  color: #71767b;
-  font-size: 15px;
-}
-
-.main-actions {
-  padding: 15px 0;
-  border-bottom: 1px solid #2f3336;
-}
-
-.deleted{
-    color:rgb(151, 151, 151)
-}
-
-/* 返信ツイートのスタイル */
-.reply-tweet {
-  border-top: 1px solid #2f3336; /* 上に線を引いて区切る */
-  padding-left: 16px;
-  background: #000;
-}
-
-.replying-to {
-  color: #71767b;
-  font-size: 14px;
-  margin-bottom: 4px;
-}
-
-.replying-to .mention {
-  color: #4ebcfc; /* さっき決めた明るい青 */
-}
-
-/* --- フォローボタンのデザイン --- */
-.follow-btn {
-  float: right; /* 右上に配置 */
-  background-color: #eff3f4; /* 白に近い色 */
-  color: #0f1419; /* 文字は黒 */
-  border: none;
-  border-radius: 9999px; /* 丸いボタン */
-  padding: 8px 16px;
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  margin-top: 12px;
-}
-
-.follow-btn:hover {
-  background-color: #d7dbdc; /* ホバー時に少し暗く */
-}
-
-/* プロフィール詳細エリアの形崩れを防止 */
 .profile-details {
   position: relative;
   padding: 12px 16px;
   clear: both;
 }
 
-/* 念のためクリアフィックス（ボタンの回り込み対策） */
 .profile-details::after {
   content: "";
   display: block;
   clear: both;
 }
 
-/* 右下の隠し証拠番号 */
+.profile-names { margin-top: 8px; margin-bottom: 12px; }
+.profile-names .username { font-size: 20px; font-weight: 800; color: #e7e9ea; }
+.profile-names .handle { color: #71767b; font-size: 15px; }
+
+.profile-bio { font-size: 15px; line-height: 20px; margin-bottom: 12px; color: #e7e9ea; }
+.profile-meta { color: #71767b; font-size: 15px; margin-bottom: 12px; }
+.profile-stats { display: flex; gap: 20px; font-size: 14px; color: #71767b; }
+.profile-stats strong { color: #e7e9ea; }
+
+.nav-tabs { display: flex; border-bottom: 1px solid #2f3336; margin-top: 16px; }
+.nav-tab { flex: 1; text-align: center; padding: 16px; color: #71767b; font-weight: 700; cursor: pointer; transition: 0.2s; }
+.nav-tab:hover { background: rgba(255, 255, 255, 0.03); }
+.nav-tab.active { color: #e7e9ea; border-bottom: 4px solid #1d9bf0; }
+
+/* --- その他パーツ --- */
+.follow-btn {
+  float: right;
+  background-color: #eff3f4;
+  color: #0f1419;
+  border: none;
+  border-radius: 9999px;
+  padding: 8px 16px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-top: 12px;
+}
+
+.follow-btn:hover { background-color: #d7dbdc; }
+
 .evidence-number {
   position: fixed;
   bottom: 8px;
   right: 12px;
   font-size: 20px;
-  color: #71767b;   /* Twitterのサブテキストと同じグレー */  
-  user-select: none; /* テキスト選択できないようにして「ただの背景」感を出す */
-  pointer-events: none; /* クリックを透過させて操作の邪魔をしない */
+  color: #71767b;
+  user-select: none;
+  pointer-events: none;
   z-index: 1000;
-  font-family: monospace; /* 証拠番号っぽさを出すために等幅フォント */
+  font-family: monospace;
 }

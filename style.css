@@ -201,36 +201,33 @@ body {
 .trend-item span { color: #71767b; font-size: 13px; }
 
 /* =========================================
-   レスポンシブ対応：ここを大幅に修正しました
+   レスポンシブ対応（基準値：700px）
    ========================================= */
 
-/* iPad・タブレット（1100px以下 769px以上） */
-@media (max-width: 1100px) and (min-width: 769px) {
+/* タブレット・小型デバイス（1100px以下 701px以上） */
+@media (max-width: 1100px) and (min-width: 701px) {
   .main-layout { 
-    grid-template-columns: 80px 1fr 300px; /* 左をアイコン化して3列維持 */
+    grid-template-columns: 80px 1fr 300px; /* アイコン | タイムライン | 検索バー */
     width: 100%;
     max-width: 100vw;
   }
-  /* 左メニューのテキストを消す */
-  .nav-item span { display: none; }
+  .nav-item span { display: none; } /* テキスト非表示 */
   .nav-item { padding: 12px; justify-content: center; }
   .sidebar-left { align-items: center; width: 80px; }
   
-  /* 右サイドバーは表示し、少し幅を狭める */
-  .sidebar-right { display: block; width: 300px; }
+  .sidebar-right { display: block; width: 300px; } /* 701pxまでは絶対出す */
 }
 
-/* スマホサイズ（768px以下） */
-@media (max-width: 768px) {
+/* スマホサイズ（700px以下） */
+@media (max-width: 700px) {
   .main-layout { 
-    grid-template-columns: 60px 1fr; /* 右を完全に消す */
+    grid-template-columns: 60px 1fr; /* 右サイドバーを消す */
   }
   .nav-item span, .sidebar-right { 
     display: none; 
   }
   .sidebar-left { width: 60px; padding: 12px 5px; align-items: center; }
   .nav-item { padding: 10px; }
-  .logo { font-size: 24px; }
 }
 
 /* --- 拡大表示（モーダル） --- */
@@ -252,59 +249,13 @@ body {
   object-fit: contain;
 }
 
-/* --- プロフィール画面 --- */
-.header-image {
-  width: 100%;
-  height: 200px;
-  background-color: #333;
-  background-size: cover;
-  background-position: center;
-}
+/* --- プロフィール・詳細画面 --- */
+.header-image { width: 100%; height: 200px; background-color: #333; background-size: cover; background-position: center; }
+.profile-avatar-large { width: 80px; height: 80px; border-radius: 50%; border: 4px solid #000; margin-top: -40px; margin-left: 16px; overflow: hidden; background: #000; }
+.profile-avatar-large img { width: 100%; height: 100%; object-fit: cover; }
+.profile-details { position: relative; padding: 12px 16px; clear: both; }
+.profile-details::after { content: ""; display: block; clear: both; }
 
-.profile-avatar-large {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  border: 4px solid #000;
-  margin-top: -40px;
-  margin-left: 16px;
-  overflow: hidden;
-  background: #000;
-}
-
-.profile-avatar-large img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.profile-details {
-  position: relative;
-  padding: 12px 16px;
-  clear: both;
-}
-
-.profile-details::after {
-  content: "";
-  display: block;
-  clear: both;
-}
-
-.profile-names { margin-top: 8px; margin-bottom: 12px; }
-.profile-names .username { font-size: 20px; font-weight: 800; color: #e7e9ea; }
-.profile-names .handle { color: #71767b; font-size: 15px; }
-
-.profile-bio { font-size: 15px; line-height: 20px; margin-bottom: 12px; color: #e7e9ea; }
-.profile-meta { color: #71767b; font-size: 15px; margin-bottom: 12px; }
-.profile-stats { display: flex; gap: 20px; font-size: 14px; color: #71767b; }
-.profile-stats strong { color: #e7e9ea; }
-
-.nav-tabs { display: flex; border-bottom: 1px solid #2f3336; margin-top: 16px; }
-.nav-tab { flex: 1; text-align: center; padding: 16px; color: #71767b; font-weight: 700; cursor: pointer; transition: 0.2s; }
-.nav-tab:hover { background: rgba(255, 255, 255, 0.03); }
-.nav-tab.active { color: #e7e9ea; border-bottom: 4px solid #1d9bf0; }
-
-/* --- その他パーツ --- */
 .follow-btn {
   float: right;
   background-color: #eff3f4;

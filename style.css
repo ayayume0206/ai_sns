@@ -117,3 +117,52 @@ body {
 
 .modal { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; }
 .modal-content { max-width: 90%; max-height: 90%; object-fit: contain; }
+
+/* 返信先・メンションの青文字設定 */
+.mention {
+  color: #1d9bf0 !important;
+  text-decoration: none;
+}
+.mention:hover {
+  text-decoration: underline;
+}
+.replying-to {
+  color: #71767b;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+/* ツイート枠の右下のID表示（証拠番号） */
+.evidence-number {
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
+  font-size: 14px;
+  color: #333; /* 暗い背景に馴染む暗いグレー */
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* レイアウト調整用 */
+.main-layout {
+  display: flex;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.sidebar-left { width: 275px; border-right: 1px solid #2f3336; }
+.timeline-container { width: 600px; border-right: 1px solid #2f3336; }
+.sidebar-right { width: 325px; padding: 12px; }
+
+/* モーダル */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.9);
+  align-items: center; justify-content: center;
+}
+.modal-content { max-width: 90%; max-height: 90%; }

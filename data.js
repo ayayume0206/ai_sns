@@ -39,7 +39,7 @@ const profilesData = {
       { id: 135, timestamp: "2026/01/22 21:58", replyTo: "@aka_ringo", text: "最近忙しそうだね", actions: { replies: 0, retweets: 0, likes: 0 } },
       { id: 136, timestamp: "2026/01/17 22:39", replyTo: "@aka_ringo", text: "なんていうゲームやってるの", actions: { replies: 0, retweets: 0, likes: 0 } },
       { id: 137, timestamp: "2026/01/13 06:27", replyTo: "@aka_ringo", text: "なんていうゲームやってるの", actions: { replies: 0, retweets: 0, likes: 0 } },
-      { id:  10, timestamp: "2026/01/10 12:00", text: "綺麗だね", images: ["https://picsum.photos/800/601?random=11"], actions: { replies: 0, retweets: 0, likes: 0 } },
+      { id:  10, timestamp: "2026/01/10 12:00", text: "綺麗だね", images: ["Snoback.PNG"], actions: { replies: 0, retweets: 0, likes: 0 } },
       { id: 138, timestamp: "2026/01/09 19:25", replyTo: "@aka_ringo", text: "そのゲーム持ってないよ。買うね", actions: { replies: 0, retweets: 0, likes: 0 } },
       { id: 139, timestamp: "2026/01/07 14:05", replyTo: "@aka_ringo", text: "いいなーあなたのグッズはないの？", actions: { replies: 0, retweets: 0, likes: 0 } },
       { id: 140, timestamp: "2025/12/22 18:43", replyTo: "@aka_ringo", text: "羨ましい。食べたいな", actions: { replies: 0, retweets: 0, likes: 0 } },

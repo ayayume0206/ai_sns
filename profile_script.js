@@ -31,8 +31,15 @@ document.addEventListener("DOMContentLoaded", () => {
     timeline.innerHTML = ""; 
 
     user.tweets.forEach(tweet => {
+        // メンションを青くするための処理
         let processedText = tweet.text.replace(/(@[a-zA-Z0-9_]+)/g, '<span class="mention">$1</span>');
         
+        // 【重要】返信先 (@handle) の表示を作成
+        let replyHtml = "";
+        if (tweet.replyTo) {
+            replyHtml = `<div class="replying-to">返信先: <span class="mention">${tweet.replyTo}</span></div>`;
+        }
+
         // 画像の生成
         let imageHtml = "";
         if (tweet.images && tweet.images.length > 0) {
@@ -43,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
             imageHtml += `</div>`;
         }
 
-        // ツイートHTML（アクション部分を追加しました！）
+        // ツイートHTML
         const tweetHtml = `
             <div class="tweet" onclick="location.href='tweet-detail.html?id=${tweet.id}'">
                 <div class="avatar">
@@ -55,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <span class="handle">${user.handle}</span>
                         <span class="timestamp">· ${tweet.timestamp}</span>
                     </div>
-                    <div class="tweet-text">${processedText}</div>
+                    ${replyHtml} <div class="tweet-text">${processedText}</div>
                     ${imageHtml}
                     <div class="tweet-actions">
                         <div class="action"><span>💬 ${tweet.actions.replies}</span></div>
@@ -69,7 +76,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-// モーダル機能（画像タップ用）
 function openModal(src) {
     const modal = document.getElementById("imageModal");
     const modalImg = document.getElementById("fullImage");
